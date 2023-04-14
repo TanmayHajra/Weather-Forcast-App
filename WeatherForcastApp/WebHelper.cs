@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Newtonsoft.Json;
+using System.Net;
 
 namespace WeatherForcastApp
 {
-    using Newtonsoft.Json;
-    using System;
-    using System.Net.Http;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Configuration;
-    using System.Net;
-
-    namespace WebApp
+    public static class HttpHelper
     {
-        public static class HttpHelper
+        /// <summary>
+        /// Get API Call
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public static async Task<T> GetAsync<T>(string uri)
         {
-          
-            public static async Task<T> GetAsync<T>(string uri)
+            try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
 
@@ -27,13 +22,17 @@ namespace WeatherForcastApp
                 using (Stream stream = response.GetResponseStream())
                 using (StreamReader reader = new StreamReader(stream))
                 {
-                   
+
                     string resultContentString = await reader.ReadToEndAsync();
                     T resultContent = JsonConvert.DeserializeObject<T>(resultContentString);
                     return resultContent;
                 }
             }
+            catch (Exception ex) { Console.Error.WriteLine(ex.Message); }
 
+            return default(T);
         }
+
     }
 }
+

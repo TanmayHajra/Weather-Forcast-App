@@ -9,8 +9,8 @@ namespace WeatherForcastApp.Entity
     internal class City
     {
         public string city { get; set; }
-        public string lat { get; set; }
-        public string lng { get; set; }
+        public decimal lat { get; set; }
+        public decimal lng { get; set; }
         public string country { get; set; }
         public string iso2 { get; set; }
         public string admin_name { get; set; }

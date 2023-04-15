@@ -73,7 +73,7 @@ namespace WeatherForcastApp
         {
             try
             {
-                string baseurl = ConfigurationManager.AppSettings["baseurl"];
+                string baseurl = ConfigurationManager.AppSettings["baseurl"] ?? "https://api.open-meteo.com";
                 string url = string.Format(baseurl + "/v1/forecast?latitude={0}&longitude={1}&current_weather=true", city.lat, city.lng);
 
                 HttpClient client = new HttpClient();
@@ -92,4 +92,5 @@ namespace WeatherForcastApp
             return new Weather();
         }
     }
+
 }
